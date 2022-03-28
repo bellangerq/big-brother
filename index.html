@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./style.css">
+  <title>Big Brother</title>
+</head>
+<body>
+  <h1>Bonjour Odette 🎥 🐶</h1>
+
+  <button class="push">
+    Être alerté des prochains lives
+    <span hidden class="push-support">(Ce navigateur ne supporte pas l'envoi de notifications)</span>
+  </button>
+
+  <form action="/login" method="POST">
+    <label for="password">Mot de passe pour accéder au stream</label>
+    <input type="password" name="password" id="password">
+    <button>Accéder au stream</button>
+  </form>
+
+  <figure class="hidden" role="figure" aria-label="Streaming en direct d'Odette dans le salon. Que va t-il se passer ?">
+    <img src="/stream.mjpg" alt="">
+    <figcaption>
+      Streaming en direct d'Odette dans le salon. Que va t-il se passer ?
+    </figcaption>
+  </figure>
+
+  <script type="module" src="/main.js"></script>
+</body>
+</html>
