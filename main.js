@@ -20,11 +20,9 @@ img.addEventListener(
 )
 
 const pushButton = document.querySelector('.push')
-const pushSupport = document.querySelector('.push-support')
 
 if (!checkBrowserSuppport()) {
-  pushButton.setAttribute('disabled', 'disabled')
-  pushSupport.removeAttribute('hidden')
+  pushButton.setAttribute('hidden', 'hidden')
 }
 
 pushButton.addEventListener('click', async (e) => {
@@ -35,11 +33,39 @@ pushButton.addEventListener('click', async (e) => {
     return
   }
 
-  // permission granted
-  setTimeout(() => {
-    const notification = new Notification('Odette est en direct', {
-      body: 'Viens espionner Odette :)',
-      lang: 'fr'
-    })
-  }, 1000)
+  // register service worker
+  const registration = await navigator.serviceWorker.register(
+    '/serviceWorker.js'
+  )
+
+  // FIXME: handle Safari support
+  let subscription = await registration.pushManager.getSubscription()
+
+  if (subscription) {
+    // already subscribed
+    return
+  }
+
+  const publicKey = await (await fetch('/public-key')).text()
+
+  subscription = await registration.pushManager.subscribe({
+    userVisibleOnly: true,
+    applicationServerKey: publicKey
+  })
+
+  console.log(subscription)
+
+  await fetch('/register', {
+    method: 'POST',
+    body: JSON.stringify({ subscription }),
+    headers: { 'Content-Type': 'application/json' }
+  })
+
+  fetch('/trigger-notifications', { method: 'POST' })
+
+  // // permission granted
+  // const notification = new Notification('Odette est en direct', {
+  //   body: 'Viens espionner Odette :)',
+  //   lang: 'fr'
+  // })
 })

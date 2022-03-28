@@ -1,5 +1,5 @@
 :root {
-  --main: #f8a052;
+  --main: #a88460;
   --black: #121212;
   --white: #f8f8fb;
   --grey: #444444;
@@ -24,8 +24,17 @@ body {
   padding: 1rem;
 }
 
+header {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  justify-content: space-between;
+}
+
 h1 {
-  margin: 0 auto 1rem;
+  margin: 0;
 }
 
 figure {
@@ -58,7 +67,7 @@ label {
 }
 
 input,
-button {
+button:not([hidden]) {
   border-radius: 0;
   display: block;
   font-size: 100%;
@@ -77,10 +86,6 @@ button {
   color: var(--white);
 }
 
-button:active {
-  background-color: red;
-}
-
-.push {
-  margin-bottom: 1rem;
+button:hover {
+  background-color: var(--grey);
 }
