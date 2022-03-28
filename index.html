@@ -11,22 +11,22 @@
 </head>
 <body>
   <header>
-    <h1>Bonjour Odette 🎥 🐶</h1>
-    <button class="push">Être alerté des lives 🔔</button>
+    <div>
+      <h1>Bonjour Odette</h1>
+      <img src="/favicon.png" alt="Gros plan sur la truffe d'Odette" />
+    </div>
+    <!-- <button class="push">Être alerté des lives 🔔</button> -->
   </header>
 
   <main>
     <form action="/login" method="POST">
-      <label for="password">Mot de passe pour accéder au stream</label>
-      <input type="password" name="password" id="password">
+      <label for="password">Mot de passe</label>
+      <input type="password" name="password" id="password" required>
       <button>Accéder au stream</button>
     </form>
 
     <figure class="hidden" role="figure" aria-label="Streaming en direct d'Odette dans le salon. Que va t-il se passer ?">
       <img src="/stream.mjpg" alt="">
-      <figcaption>
-        Streaming en direct d'Odette dans le salon. Que va t-il se passer ?
-      </figcaption>
     </figure>
   </main>
 
