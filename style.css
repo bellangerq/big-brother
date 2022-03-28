@@ -40,6 +40,8 @@ h1 {
 }
 
 header img {
+  border: 0.125rem solid var(--white);
+  border-radius: 50%;
   width: 2rem;
 }
 

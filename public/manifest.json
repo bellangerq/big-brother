@@ -4,9 +4,10 @@
   "description": "Mais que fait Odette ?",
   "icons": [
     {
-      "src": "/favicon.png",
+      "src": "/icon.png",
       "type": "image/png",
-      "sizes": "512x512"
+      "sizes": "512x512",
+      "purpose": "maskable any"
     }
   ],
   "start_url": "/",
