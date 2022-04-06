@@ -10,6 +10,8 @@ const img = document.querySelector('figure img')
 const form = document.querySelector('form')
 const figure = document.querySelector('figure')
 
+img.src = '/stream.mjpg'
+
 img.addEventListener(
   'load',
   () => {

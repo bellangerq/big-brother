@@ -13,20 +13,20 @@
   to = "http://176.169.182.89:2018/stream.mjpg"
   status = 200
 
-[[redirects]]
-  from = "/public-key"
-  to = "http://localhost:4000/public-key"
-  status = 200
+# [[redirects]]
+#   from = "/public-key"
+#   to = "http://localhost:4000/public-key"
+#   status = 200
 
-[[redirects]]
-  from = "/register"
-  to = "http://localhost:4000/register"
-  status = 200
+# [[redirects]]
+#   from = "/register"
+#   to = "http://localhost:4000/register"
+#   status = 200
 
-[[redirects]]
-  from = "/trigger-notifications"
-  to = "http://localhost:4000/trigger-notifications"
-  status = 200
+# [[redirects]]
+#   from = "/trigger-notifications"
+#   to = "http://localhost:4000/trigger-notifications"
+#   status = 200
 
 [dev]
   autoLaunch = false
