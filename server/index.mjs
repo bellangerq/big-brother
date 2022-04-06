@@ -20,6 +20,18 @@ const url =
     : 'https://big-brother.quentin-bellanger.com'
 
 const runApp = async () => {
+  let streamCamera = null
+  if (process.env.NODE_ENV === 'production') {
+    streamCamera = new StreamCamera({
+      codec: Codec.MJPEG,
+      width: 1280,
+      height: 720,
+      fps: 15
+    })
+
+    await streamCamera.startCapture()
+  }
+
   const app = express()
 
   app.use(bodyParser.urlencoded({ extended: false }))
@@ -53,15 +65,6 @@ const runApp = async () => {
       const p = path.join(__dirname, '/placeholder.png')
       res.sendFile(p)
     } else {
-      const streamCamera = new StreamCamera({
-        codec: Codec.MJPEG,
-        width: 1280,
-        height: 720,
-        fps: 15
-      })
-
-      await streamCamera.startCapture()
-
       res.writeHead(200, {
         'Cache-Control':
           'no-store, no-cache, must-revalidate, pre-check=0, post-check=0, max-age=0',
