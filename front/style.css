@@ -45,10 +45,15 @@ header img {
   width: 2rem;
 }
 
+
 main {
   margin: 0 auto;
   max-width: 50rem;
   padding: 1rem;
+}
+
+.push {
+  margin-block: 1rem;
 }
 
 figure {

@@ -1,10 +1,3 @@
-// /**
-//  * @returns {boolean} True when the browser supports the required APIs.
-//  */
-// function checkBrowserSuppport() {
-//   return 'Notification' in window
-// }
-
 // Show stream and hide form when connected
 const img = document.querySelector('figure img')
 const form = document.querySelector('form')
@@ -21,53 +14,46 @@ img.addEventListener(
   { once: true }
 )
 
-// const pushButton = document.querySelector('.push')
+// Push notifications
+const pushButton = document.querySelector('.push')
 
-// if (!checkBrowserSuppport()) {
-//   pushButton.setAttribute('hidden', 'hidden')
-// }
+pushButton.addEventListener('click', () => {
+  setupServiceWorker()
+})
 
-// pushButton.addEventListener('click', async (e) => {
-//   const result = await Notification.requestPermission()
+async function setupServiceWorker() {
+  const permission = await Notification.requestPermission()
 
-//   if (result !== 'granted') {
-//     // permission denied
-//     return
-//   }
+  if (permission !== 'granted') {
+    return
+  }
 
-//   // register service worker
-//   const registration = await navigator.serviceWorker.register(
-//     '/serviceWorker.js'
-//   )
+  const registration = await navigator.serviceWorker.register('/sw.js', {
+    scope: '/'
+  })
 
-//   // FIXME: handle Safari support
-//   let subscription = await registration.pushManager.getSubscription()
+  registration.pushManager
+    .getSubscription()
+    .then(async (subscription) => {
+      if (subscription) {
+        return subscription
+      }
+      const publicKey = await (await fetch('/push/public-key')).text()
 
-//   if (subscription) {
-//     // already subscribed
-//     return
-//   }
-
-//   const publicKey = await (await fetch('/public-key')).text()
-
-//   subscription = await registration.pushManager.subscribe({
-//     userVisibleOnly: true,
-//     applicationServerKey: publicKey
-//   })
-
-//   console.log(subscription)
-
-//   await fetch('/register', {
-//     method: 'POST',
-//     body: JSON.stringify({ subscription }),
-//     headers: { 'Content-Type': 'application/json' }
-//   })
-
-//   fetch('/trigger-notifications', { method: 'POST' })
-
-//   // // permission granted
-//   // const notification = new Notification('Odette est en direct', {
-//   //   body: 'Viens espionner Odette :)',
-//   //   lang: 'fr'
-//   // })
-// })
+      // never resolve or reject on ungoogled chromium
+      return registration.pushManager.subscribe({
+        userVisibleOnly: true,
+        applicationServerKey: publicKey
+      })
+    })
+    .then(async (subscription) => {
+      await fetch('/push/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ subscription })
+      })
+    })
+    .catch((err) => {
+      console.error({ err })
+    })
+}
