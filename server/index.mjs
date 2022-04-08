@@ -57,7 +57,7 @@ async function saveNewSubscription(subscription) {
   })
 
   if (subscriptionAlreadyExist) {
-    console.warning('Subscription already saved. Skipping.')
+    console.warn('Subscription already saved. Skipping.')
     return
   }
 
